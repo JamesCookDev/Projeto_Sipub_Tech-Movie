@@ -1,14 +1,13 @@
-# Estágio 1: 'builder' - Apenas compila a aplicação
 FROM golang:1.25-alpine AS builder
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY movies-service/go.mod movies-service/go.sum ./
 RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /app/bin/movies-service ./cmd/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/bin/movies-service github.com/jamescookdev/projeto-sipub-tech/movies-service/cmd
 
 
 FROM alpine:3.20
@@ -16,6 +15,9 @@ FROM alpine:3.20
 WORKDIR /app
 
 COPY --from=builder /app/bin/movies-service .
+
+COPY data ./data
+
 
 EXPOSE 50051
 

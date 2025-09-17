@@ -28,48 +28,137 @@ A arquitetura segue o padrão **Hexagonal**, isolando as camadas de negócios da
 - **gRPC & Protobuf:** Para a comunicação interna entre os serviços.
 - **Gin:** Framework web para a API Gateway.
 - **Swaggo:** Ferramenta para geração automática da documentação OpenAPI (Swagger).
+- **Kubernetes (Minikube):** Orquestração de contêineres para simulação e deploy em ambiente de produção.
 
 ---
 
-##  Como Rodar a Aplicação (Guia Rápido)
+## ▶️ Como Rodar a Aplicação
 
-Siga os passos abaixo para executar o projeto em seu ambiente local.
+Este projeto pode ser executado de duas formas principais:
+
+1. **Docker Compose:** Para desenvolvimento local rápido.
+2. **Kubernetes (Minikube):** Para simular um ambiente de produção.
+
+Certifique-se de ter os pré-requisitos instalados antes de começar.
 
 ### Pré-requisitos
+
 - [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com/get-started)
 - [Docker Compose](https://docs.docker.com/compose/install/)
+- [Minikube](https://minikube.sigs.k8s.io/docs/start/) (opcional, para Kubernetes)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) (opcional, para Kubernetes)
 
-### Configuração do Ambiente
-O projeto utiliza um arquivo `.env` para gerenciar as variáveis de ambiente.
+### Configuração Inicial
 
 1. Clone este repositório:
     ```bash
-    git clone <https://github.com/JamesCookDev/Projeto_Sipub_Tech-Movie.git>
+    git clone https://github.com/JamesCookDev/Projeto_Sipub_Tech-Movie
     ```
-
-2. Navegue até a pasta raiz do projeto.
-
-3. Crie seu arquivo de configuração `.env` a partir do exemplo fornecido:
+2. Acesse a pasta raiz do projeto:
+    ```bash
+    cd Projeto_Sipub_Tech-Movie
+    ```
+3. Crie o arquivo `.env` a partir do exemplo:
     ```bash
     cp .env.example .env
     ```
-    > Para o ambiente de desenvolvimento padrão, nenhuma alteração é necessária no arquivo `.env`.
 
-### Inicialização com Um Comando
-Para iniciar todos os serviços com um único comando, execute:
+---
 
+### Ambiente 1: Docker Compose
+
+O método mais simples para rodar localmente.
+
+#### Subindo a aplicação
+
+Construa as imagens e inicie os serviços em segundo plano:
 ```bash
-docker compose up --build
+docker compose up --build -d
 ```
-Esse comando irá construir as imagens, baixar as dependências, criar os contêineres e as redes. Após a inicialização, a API estará disponível em [http://localhost:8080](http://localhost:8080).
+A API estará disponível em [http://localhost:8080](http://localhost:8080).
 
-## Parando a Aplicação
+#### Logs dos serviços
 
-Para parar todos os contêineres, execute:
+Acompanhe os logs em tempo real:
+```bash
+docker compose logs -f
+```
 
+#### Parando a aplicação
+
+Para parar todos os contêineres:
 ```bash
 docker compose down
+```
+
+#### Limpeza completa (incluindo volumes)
+
+Para remover os contêineres e os dados do banco:
+```bash
+docker compose down -v
+```
+
+---
+
+### Ambiente 2: Kubernetes (Minikube)
+
+Simula um ambiente de produção localmente.
+
+> **Importante:** Certifique-se de que o Docker Compose está parado (`docker compose down`) antes de iniciar.
+
+#### Iniciando o cluster
+
+Inicie o Minikube:
+```bash
+minikube start --driver=docker
+```
+
+Configure o terminal para usar o Docker do Minikube:
+```bash
+eval $(minikube -p minikube docker-env)
+```
+
+#### Build das imagens no ambiente Minikube
+
+```bash
+docker compose build
+```
+
+#### Deploy dos manifestos Kubernetes
+
+```bash
+kubectl apply -f k8s/
+```
+
+#### Acompanhando os pods
+
+```bash
+kubectl get pods -w
+```
+
+#### Obtendo a URL da API Gateway
+
+```bash
+minikube service api-gateway-service --url
+```
+Use a URL retornada para acessar a API.
+
+#### Parando e limpando o ambiente
+
+Remova os recursos do cluster:
+```bash
+kubectl delete -f k8s/
+```
+
+Pare o Minikube:
+```bash
+minikube stop
+```
+
+Para deletar o cluster completamente (opcional):
+```bash
+minikube delete --all
 ```
 
 ## Documentação da API (Swagger)

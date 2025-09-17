@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movies-service-deployment 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movies-service
+  template:
+    metadata:
+      labels:
+        app: movies-service
+    spec:
+      containers:
+        - name: movies-service-container
+          image: movies-service:latest 
+          imagePullPolicy: Never 
+          ports:
+            - containerPort: 50051

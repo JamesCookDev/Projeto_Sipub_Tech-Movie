@@ -70,7 +70,6 @@ func main() {
 	grpcServerAdapter := grpcAdapter.NewGRPCServerAdapter(movieService)
 	grpcServer := grpc.NewServer()
 
-
 	pb.RegisterMovieServiceServer(grpcServer, grpcServerAdapter)
 
 	reflection.Register(grpcServer)

@@ -1,16 +1,22 @@
 services:
   movies_service:
+    image: movies-service:latest
     container_name: movies_service
-    build: ./movies-service
+    build:
+      context: .
+      dockerfile: ./movies-service/Dockerfile
     ports:
-      - "50051:50051" 
-    environment:
+      - "50051:50051"
+    env_file:
       - .env
-
     depends_on:
       - mongodb
-    volumes: 
-      - ./data:/app/data 
+    healthcheck:
+      test: ["CMD", "grpc-health-probe", "-addr=:50051"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   mongodb:
     image: mongo:7.0
@@ -21,14 +27,17 @@ services:
       - mongo-data:/data/db
 
   api_gateway:
+    image: api-gateway:latest
     container_name: api_gateway
     build:
       context: .
       dockerfile: ./api/Dockerfile
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     depends_on:
-      - movies_service 
+      - movies_service
 
 volumes:
   mongo-data:
