@@ -3,6 +3,7 @@ module github.com/jamescookdev/projeto-sipub-tech/movies-service
 go 1.25.1
 
 require (
+	github.com/rabbitmq/amqp091-go v1.10.0
 	github.com/stretchr/testify v1.11.1
 	go.mongodb.org/mongo-driver v1.17.4
 	google.golang.org/grpc v1.75.1

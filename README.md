@@ -173,6 +173,9 @@ Na interface do Swagger, você poderá ver todos os endpoints, seus parâmetros,
 
 A seguir, exemplos de como interagir com a API via `curl`.
 
+Para teste com o MiniKube, troque apenas o "http://localhost:8080", pelo IP dinâmico do Minikube.
+
+
 **Listando filmes com paginação (`limit=2`):**
 
 ```bash
