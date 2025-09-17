@@ -1,0 +1,22 @@
+
+.env
+
+# Binários e executáveis compilados.
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+movies-service/bin/
+api/bin/
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de log
+*.log
+
+# Pastas de ferramentas e IDEs
+.vscode/
+.idea/

@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package movies;
+
+option go_package = "github.com/jamescookdev/projeto-sipub-tech/movies-service/gen/go/movies";
+
+message Movie {
+    string id = 1;
+    string title = 2;
+    int32 year = 4;
+}
+
+message GetMovieRequest {
+    string id = 1;
+}
+
+message CreateMovieRequest {
+    string title = 1;
+    int32 year = 3;
+}
+
+message DeleteMovieRequest {
+    string id = 1;
+}
+
+message ListMoviesRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+}
+
+
+message Empty {} 
+
+message MovieList {
+    repeated Movie movies = 1;
+}
+
+service MovieService {
+    rpc GetMovie(GetMovieRequest) returns (Movie);
+    rpc ListMovies(ListMoviesRequest) returns (MovieList);
+    rpc CreateMovie(CreateMovieRequest) returns (Movie);
+    rpc DeleteMovie(DeleteMovieRequest) returns (Empty);
+}
