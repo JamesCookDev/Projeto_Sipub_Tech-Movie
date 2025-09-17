@@ -32,7 +32,7 @@ A arquitetura segue o padrão **Hexagonal**, isolando as camadas de negócios da
 
 ---
 
-## ▶️ Como Rodar a Aplicação
+## Como Rodar a Aplicação
 
 Este projeto pode ser executado de duas formas principais:
 
@@ -57,7 +57,7 @@ Certifique-se de ter os pré-requisitos instalados antes de começar.
     ```
 2. Acesse a pasta raiz do projeto:
     ```bash
-    cd Projeto_Sipub_Tech-Movie
+    cd Projeto_Sipub_Tech
     ```
 3. Crie o arquivo `.env` a partir do exemplo:
     ```bash
