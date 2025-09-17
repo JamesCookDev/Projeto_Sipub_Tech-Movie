@@ -32,7 +32,7 @@ A arquitetura segue o padrão **Hexagonal**, isolando as camadas de negócios da
 
 ---
 
-## ▶️ Como Rodar a Aplicação
+## Como Rodar a Aplicação
 
 Este projeto pode ser executado de duas formas principais:
 
