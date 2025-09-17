@@ -57,7 +57,7 @@ Certifique-se de ter os pré-requisitos instalados antes de começar.
     ```
 2. Acesse a pasta raiz do projeto:
     ```bash
-    cd Projeto_Sipub_Tech-Movie
+    cd Projeto_Sipub_Tech
     ```
 3. Crie o arquivo `.env` a partir do exemplo:
     ```bash
@@ -172,6 +172,9 @@ Na interface do Swagger, você poderá ver todos os endpoints, seus parâmetros,
 ## Exemplos de Uso (cURL)
 
 A seguir, exemplos de como interagir com a API via `curl`.
+
+Para teste com o MiniKube, troque apenas o "http://localhost:8080", pelo IP dinâmico do Minikube.
+
 
 **Listando filmes com paginação (`limit=2`):**
 

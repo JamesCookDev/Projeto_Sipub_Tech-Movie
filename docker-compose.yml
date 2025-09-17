@@ -1,4 +1,24 @@
 services:
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"     
+      - "15672:15672"   
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-user}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-pass}
+    restart: unless-stopped
+
   movies_service:
     image: movies-service:latest
     container_name: movies_service
@@ -11,20 +31,8 @@ services:
       - .env
     depends_on:
       - mongodb
-    healthcheck:
-      test: ["CMD", "grpc-health-probe", "-addr=:50051"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-
-  mongodb:
-    image: mongo:7.0
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
+      - rabbitmq
+    restart: unless-stopped
 
   api_gateway:
     image: api-gateway:latest
@@ -38,6 +46,8 @@ services:
       - .env
     depends_on:
       - movies_service
+      - rabbitmq
+    restart: unless-stopped
 
 volumes:
   mongo-data:
