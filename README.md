@@ -29,6 +29,7 @@ A arquitetura segue o padrão **Hexagonal**, isolando as camadas de negócios da
 - **Gin:** Framework web para a API Gateway.
 - **Swaggo:** Ferramenta para geração automática da documentação OpenAPI (Swagger).
 - **Kubernetes (Minikube):** Orquestração de contêineres para simulação e deploy em ambiente de produção.
+- **RabbitMq:** Message broker que usa filas para permitir comunicação assíncrona, resiliente e escalável entre microsserviços.
 
 ---
 
