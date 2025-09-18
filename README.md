@@ -245,6 +245,7 @@ go test -v -run "TestMovieServiceWithMocks" ./...
 A estrutura de pastas principal do projeto é a seguinte:
 
 ```
+.
 ├── api
 │   ├── Dockerfile
 │   ├── docs
@@ -255,12 +256,20 @@ A estrutura de pastas principal do projeto é a seguinte:
 │   ├── go.sum
 │   ├── handlers
 │   │   └── movie_handlers.go
-│   └── main.go
+│   ├── main.go
+│   └── messaging
+│       └── publisher.go
 ├── data
 │   └── movies.json
 ├── docker-compose.yml
 ├── go.work
 ├── go.work.sum
+├── k8s
+│   ├── api-gateway-configmap.yaml
+│   ├── api-gateway-deployment.yaml
+│   ├── mongodb-deployment.yaml
+│   ├── movies-service-deployment.yaml
+│   └── movies-service-service.yaml
 ├── movies-service
 │   ├── cmd
 │   │   └── main.go
@@ -275,8 +284,10 @@ A estrutura de pastas principal do projeto é a seguinte:
 │       ├── adapters
 │       │   ├── grpc
 │       │   │   └── server.go
-│       │   └── mongodb
-│       │       └── mongoRepo.go
+│       │   ├── mongodb
+│       │   │   └── mongoRepo.go
+│       │   └── rabbitmq
+│       │       └── consumer.go
 │       └── core
 │           ├── domain
 │           │   └── movie.go
@@ -289,7 +300,7 @@ A estrutura de pastas principal do projeto é a seguinte:
 │               └── movie_services_test.go
 ├── proto
 │   └── movies.proto
-└── ReadMe.md
+└── README.md
 ```
 
 ## 
